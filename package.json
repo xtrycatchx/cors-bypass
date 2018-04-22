@@ -2,7 +2,7 @@
   "name": "cors-bypass",
   "version": "1.0.0",
   "description": "Small utility proxy to bypass cross-origin resource sharing (CORS) of a target domain",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "node lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
