@@ -4,24 +4,52 @@ const net = require('net');
 
 describe('Creating new instance', () => {
     it('should fail because no target', () => {
-        let ret = () => {
+        const ret = () => {
             new CorsBypass();
         };
-        expect(ret).to.throw();
+        expect(ret).to.throw(Error, 'target url is not provided');
+    })
+
+    it('should fail because not a valid target', () => {
+        const ret = () => {
+            new CorsBypass({});
+        };
+        expect(ret).to.throw(Error, 'target url is not valid');
+    })
+
+    it('should fail because not a valid target', () => {
+        const ret = () => {
+            new CorsBypass([]);
+        };
+        expect(ret).to.throw(Error, 'target url is not valid');
     })
 
     it('should fail because no port', () => {
-        let ret = () => {
+        const ret = () => {
             new CorsBypass('http://google.com');
         };
-        expect(ret).to.throw();
+        expect(ret).to.throw(Error, 'listening port is not provided');
     })
 
     it('should fail because port not correct', () => {
-        let ret = () => {
+        const ret = () => {
             new CorsBypass('http://google.com', 'abcd');
         };
-        expect(ret).to.throw();
+        expect(ret).to.throw(Error, 'listening port is not valid');
+    })
+
+    it('should fail because port not correct', () => {
+        const ret = () => {
+            new CorsBypass('http://google.com', {});
+        };
+        expect(ret).to.throw(Error, 'listening port is not valid');
+    })
+
+    it('should fail because port not correct', () => {
+        const ret = () => {
+            new CorsBypass('http://google.com', []);
+        };
+        expect(ret).to.throw(Error, 'listening port is not valid');
     })
 
     it('should be able to instantiate', () => {
@@ -31,7 +59,10 @@ describe('Creating new instance', () => {
         expect(cors.info().target).to.equal(target)
         expect(cors.info().port).to.equal(port)
     })
+    
+})
 
+describe('Starting cors proxy', () => {
     it('should be able to start', () => {
         const target = 'http://google.com'
         const port = 2000
@@ -52,7 +83,7 @@ describe('Creating new instance', () => {
             cors.stop();
             expect(cors.isStarted()).to.be.false
         });
-
-
     })
+
+    
 })
