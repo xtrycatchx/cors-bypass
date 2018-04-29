@@ -17,18 +17,39 @@ describe('Creating new instance', () => {
         expect(ret).to.throw(Error, 'target url is not valid');
     })
 
+    it('should fail because not a valid target', () => {
+        const ret = () => {
+            new CorsBypass([]);
+        };
+        expect(ret).to.throw(Error, 'target url is not valid');
+    })
+
     it('should fail because no port', () => {
         const ret = () => {
             new CorsBypass('http://google.com');
         };
-        expect(ret).to.throw();
+        expect(ret).to.throw(Error, 'listening port is not provided');
     })
 
     it('should fail because port not correct', () => {
         const ret = () => {
             new CorsBypass('http://google.com', 'abcd');
         };
-        expect(ret).to.throw();
+        expect(ret).to.throw(Error, 'listening port is not valid');
+    })
+
+    it('should fail because port not correct', () => {
+        const ret = () => {
+            new CorsBypass('http://google.com', {});
+        };
+        expect(ret).to.throw(Error, 'listening port is not valid');
+    })
+
+    it('should fail because port not correct', () => {
+        const ret = () => {
+            new CorsBypass('http://google.com', []);
+        };
+        expect(ret).to.throw(Error, 'listening port is not valid');
     })
 
     it('should be able to instantiate', () => {
